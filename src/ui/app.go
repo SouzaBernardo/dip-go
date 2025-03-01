@@ -6,14 +6,14 @@ import (
 	"fyne.io/fyne/v2/container"
 )
 
-func NewMenu() {
+func NewApp() {
 	image := NewImage("src/assets/image.jpg")
 	image2 := NewImage("src/assets/image.jpg")
 
 	imageContainer := NewImageSection("Imagem Original", image)
 	imageContainer2 := NewImageSection("Imagem Alterada", image2)
 
-	header := NewHeader([][]int{})
+	header := NewHeader(image2)
 
 	a := app.New()
 	w := a.NewWindow("Trabalho")
