@@ -13,11 +13,12 @@ func NewApp() {
 	imageContainer := NewImageSection("Imagem Original", image)
 	imageContainer2 := NewImageSection("Imagem Alterada", image2)
 
-	header := NewHeader(image2)
+	header := NewHeader(image2, imageContainer2)
 
 	a := app.New()
 	w := a.NewWindow("Trabalho")
 	w.Resize(fyne.NewSize(550, 280))
+	w.SetFixedSize(true)
 
 	w.SetContent(
 		container.NewBorder(

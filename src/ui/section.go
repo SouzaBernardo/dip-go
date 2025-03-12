@@ -9,8 +9,12 @@ import (
 )
 
 func NewImageSection(message string, image *canvas.Image) *fyne.Container {
+	fixedSize := fyne.NewSize(300, 25)
+	rect := canvas.NewRectangle(color.Transparent)
+	rect.SetMinSize(fixedSize)
 	return container.NewVBox(
 		container.NewCenter(canvas.NewText(message, color.White)),
 		container.NewCenter(image),
+		rect,
 	)
 }
