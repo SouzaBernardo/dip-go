@@ -1,5 +1,7 @@
 package main
 
-import "pdi/src/ui"
+import (
+	"pdi/src/ui"
+)
 
 func main() { ui.NewApp() }

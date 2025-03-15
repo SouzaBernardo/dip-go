@@ -17,7 +17,7 @@ func NewApp() {
 
 	a := app.New()
 	w := a.NewWindow("Trabalho")
-	w.Resize(fyne.NewSize(550, 280))
+	w.Resize(fyne.NewSize(750, 380))
 	w.SetFixedSize(true)
 
 	w.SetContent(
