@@ -1,6 +1,7 @@
 package ui
 
 import (
+	form "pdi/src/ui/forms"
 	usecases "pdi/src/use-cases"
 
 	"fyne.io/fyne/v2"
@@ -9,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func updateContainer(result [][]int, c *fyne.Container) {
+func updateContainer(result [][][]int, c *fyne.Container) {
 	newImage := usecases.ConvertMatrixToImage(result)
 	newCanvasImage := canvas.NewImageFromImage(newImage)
 	newCanvasImage.FillMode = canvas.ImageFillOriginal
@@ -21,17 +22,43 @@ func updateContainer(result [][]int, c *fyne.Container) {
 func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 	matrix := usecases.ConvertImageToMatrix(image)
 
-	btn1 := widget.NewButton("Inverter", func() {
-		result := usecases.InvertImage(matrix)
+	btn1 := widget.NewButton("Transladar", func() {
+		form.TranslateForm(matrix, func(result [][][]int) {
+			updateContainer(result, c)
+		})
+	})
+	btn2 := widget.NewButton("Escala", func() {
+		form.ScaleForm(matrix, func(result [][][]int) {
+			updateContainer(result, c)
+		})
+	})
+	btn3 := widget.NewButton("Rotação", func() {
+		form.RotationForm(matrix, func(result [][][]int) {
+			updateContainer(result, c)
+		})
+	})
+	btn4 := widget.NewButton("Espelhamento", func() {
+		result := usecases.MirorMatrix(matrix)
 		updateContainer(result, c)
 	})
-	btn2 := widget.NewButton("Transladar", func() {
-		TranslateForm().Show()
+	btn5 := widget.NewButton("Brilho", func() {
+		result := usecases.LightMatrix(matrix)
+		updateContainer(result, c)
 	})
-	btn3 := widget.NewButton("Escala", func() {})
-	btn4 := widget.NewButton("Opção 4", func() {})
-	btn5 := widget.NewButton("Opção 5", func() {})
+	btn6 := widget.NewButton("Contraste", func() {
+		result := usecases.ContrastMatrix(matrix)
+		updateContainer(result, c)
+	})
+	btn7 := widget.NewButton("Gray Scale", func() {
+		result := usecases.GrayScaleMatrix(matrix)
+		updateContainer(result, c)
+	})
 
-	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5)
+	btn8 := widget.NewButton("Filtragem da média", func() {
+		result := usecases.MirorMatrix(matrix)
+		updateContainer(result, c)
+	})
+
+	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
 	return container.NewCenter(header)
 }

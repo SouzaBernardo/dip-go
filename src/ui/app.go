@@ -16,7 +16,7 @@ func NewApp() {
 	header := NewHeader(image2, imageContainer2)
 
 	a := app.New()
-	w := a.NewWindow("Trabalho")
+	w := a.NewWindow("Trabalho PDI")
 	w.Resize(fyne.NewSize(750, 380))
 	w.SetFixedSize(true)
 
