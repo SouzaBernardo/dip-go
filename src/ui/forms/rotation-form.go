@@ -15,7 +15,7 @@ func RotationForm(matrix [][][]int, onSubmit func([][][]int)) {
 	items := []*widget.FormItem{{Text: "Valor para rotação: ", Widget: rotation}}
 
 	NewForm(items, func() {
-		rotationInt, errX := strconv.Atoi(rotation.Text)
+		rotationInt, errX := strconv.ParseFloat(rotation.Text, 64)
 		if errX != nil {
 			dialog.ShowError(fmt.Errorf("erro ao converter valores de entrada: %v", errX), fyne.CurrentApp().Driver().AllWindows()[0])
 			return

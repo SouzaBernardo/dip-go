@@ -3,7 +3,6 @@ package ui
 import (
 	form "pdi/src/ui/forms"
 	usecases "pdi/src/use-cases"
-	"pdi/src/use-cases/mirror"
 	"pdi/src/utils"
 
 	"fyne.io/fyne/v2"
@@ -40,7 +39,7 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 		})
 	})
 	btn4 := widget.NewButton("Espelhamento", func() {
-		result := mirror.MirrorMatrix(matrix)
+		result := usecases.MirrorMatrix(matrix)
 		updateContainer(result, c)
 	})
 	btn5 := widget.NewButton("Brilho", func() {
