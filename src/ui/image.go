@@ -5,13 +5,9 @@ import (
 	"fyne.io/fyne/v2/canvas"
 )
 
-func NewImage3(path string, w float32, h float32) *canvas.Image {
+func NewImage(path string) *canvas.Image {
 	image := canvas.NewImageFromFile(path)
-	image.Resize(fyne.NewSize(w, h))
+	image.Resize(fyne.NewSize(255, 255))
 	image.FillMode = canvas.ImageFillOriginal
 	return image
-}
-
-func NewImage(path string) *canvas.Image {
-	return NewImage3(path, 255, 255)
 }

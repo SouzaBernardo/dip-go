@@ -2,7 +2,7 @@ package form
 
 import (
 	"fmt"
-	usecases "pdi/src/use-cases"
+	usecases "pdi/src/use-cases/traslation"
 	"strconv"
 
 	"fyne.io/fyne/v2"

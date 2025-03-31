@@ -3,6 +3,8 @@ package ui
 import (
 	form "pdi/src/ui/forms"
 	usecases "pdi/src/use-cases"
+	"pdi/src/use-cases/mirror"
+	"pdi/src/utils"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -11,7 +13,7 @@ import (
 )
 
 func updateContainer(result [][][]int, c *fyne.Container) {
-	newImage := usecases.ConvertMatrixToImage(result)
+	newImage := utils.ConvertMatrixToImage(result)
 	newCanvasImage := canvas.NewImageFromImage(newImage)
 	newCanvasImage.FillMode = canvas.ImageFillOriginal
 	imageSection := NewImageSection("Imagem Alterada", newCanvasImage)
@@ -20,7 +22,7 @@ func updateContainer(result [][][]int, c *fyne.Container) {
 }
 
 func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
-	matrix := usecases.ConvertImageToMatrix(image)
+	matrix := utils.ConvertImageToMatrix(image)
 
 	btn1 := widget.NewButton("Transladar", func() {
 		form.TranslateForm(matrix, func(result [][][]int) {
@@ -38,7 +40,7 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 		})
 	})
 	btn4 := widget.NewButton("Espelhamento", func() {
-		result := usecases.MirorMatrix(matrix)
+		result := mirror.MirrorMatrix(matrix)
 		updateContainer(result, c)
 	})
 	btn5 := widget.NewButton("Brilho", func() {
@@ -55,8 +57,8 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 	})
 
 	btn8 := widget.NewButton("Filtragem da média", func() {
-		result := usecases.MirorMatrix(matrix)
-		updateContainer(result, c)
+		// result := usecases.MirorMatrix(matrix)
+		// updateContainer(result, c)
 	})
 
 	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)

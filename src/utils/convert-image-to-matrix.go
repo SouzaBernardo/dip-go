@@ -1,6 +1,8 @@
-package usecases
+package utils
 
-import "fyne.io/fyne/v2/canvas"
+import (
+	"fyne.io/fyne/v2/canvas"
+)
 
 func ConvertImageToMatrix(img *canvas.Image) [][][]int {
 	bounds := img.Image.Bounds()
