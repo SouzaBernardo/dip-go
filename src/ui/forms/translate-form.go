@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func TranslateForm(matrix [][][]int, onSubmit func([][][]int)) {
+func NewTranslateForm(matrix [][][]int, onSubmit func([][][]int)) {
 
 	deltaXEntry := widget.NewEntry()
 	deltaYEntry := widget.NewEntry()

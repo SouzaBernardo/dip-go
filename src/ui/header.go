@@ -22,17 +22,18 @@ func updateContainer(result [][][]int, c *fyne.Container) {
 
 func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 	matrix := utils.ConvertImageToMatrix(image)
+	matrixFloat := utils.ConvertImageToMatrixFloat(image)
 
 	btn1 := widget.NewButton("Transladar", func() {
-		form.TranslateForm(matrix, func(result [][][]int) { updateContainer(result, c) })
+		form.NewTranslateForm(matrix, func(result [][][]int) { updateContainer(result, c) })
 	})
 
 	btn2 := widget.NewButton("Escala", func() {
-		form.ScaleForm(matrix, func(result [][][]int) { updateContainer(result, c) })
+		form.NewScaleForm(matrix, func(result [][][]int) { updateContainer(result, c) })
 	})
 
 	btn3 := widget.NewButton("Rotação", func() {
-		form.RotationForm(matrix, func(result [][][]int) { updateContainer(result, c) })
+		form.NewRotationForm(matrix, func(result [][][]int) { updateContainer(result, c) })
 	})
 
 	btn4 := widget.NewButton("Espelhamento", func() {
@@ -41,8 +42,7 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 	})
 
 	btn5 := widget.NewButton("Brilho", func() {
-		result := usecases.LightMatrix(matrix)
-		updateContainer(result, c)
+		form.NewBrightnessForm(matrix, func(result [][][]int) { updateContainer(result, c) })
 	})
 
 	btn6 := widget.NewButton("Contraste", func() {
@@ -50,13 +50,13 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 	})
 
 	btn7 := widget.NewButton("Gray Scale", func() {
-		result := usecases.GrayScaleMatrix(matrix)
+		result := usecases.GrayScaleMatrix(matrixFloat)
 		updateContainer(result, c)
 	})
 
 	btn8 := widget.NewButton("Filtragem da média", func() {
-		// result := usecases.MirorMatrix(matrix)
-		// updateContainer(result, c)
+		result := usecases.AverageFiltering(matrix)
+		updateContainer(result, c)
 	})
 
 	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)

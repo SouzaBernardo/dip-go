@@ -20,7 +20,7 @@ func NewContrastForm(matrix [][][]int, onSubmit func([][][]int)) {
 			dialog.ShowError(fmt.Errorf("erro ao converter valores de entrada: %v", errX), fyne.CurrentApp().Driver().AllWindows()[0])
 			return
 		}
-		result := usecases.ContrastMatrix(matrix, contrastFloatValue, 0)
+		result := usecases.ContrastMatrix(matrix, contrastFloatValue, 1)
 		onSubmit(result)
 	})
 

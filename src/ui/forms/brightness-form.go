@@ -10,17 +10,18 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func NewRotationForm(matrix [][][]int, onSubmit func([][][]int)) {
-	rotation := widget.NewEntry()
-	items := []*widget.FormItem{{Text: "Valor para rotação: ", Widget: rotation}}
+func NewBrightnessForm(matrix [][][]int, onSubmit func([][][]int)) {
+	brightness := widget.NewEntry()
+	items := []*widget.FormItem{{Text: "Valor para brilho: ", Widget: brightness}}
 
 	NewForm(items, func() {
-		rotationInt, errX := strconv.ParseFloat(rotation.Text, 64)
+		glare, errX := strconv.ParseFloat(brightness.Text, 64)
 		if errX != nil {
 			dialog.ShowError(fmt.Errorf("erro ao converter valores de entrada: %v", errX), fyne.CurrentApp().Driver().AllWindows()[0])
 			return
 		}
-		result := usecases.RotationMatrix(matrix, rotationInt)
+		result := usecases.BirghtnessMatrix(matrix, glare)
 		onSubmit(result)
 	})
+
 }
