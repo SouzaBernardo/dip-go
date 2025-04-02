@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func NewRotationForm(matrix [][][]int, onSubmit func([][][]int)) {
+func NewRotationForm(matrix [][][]float64, onSubmit func([][][]float64)) {
 	rotation := widget.NewEntry()
 	items := []*widget.FormItem{{Text: "Valor para rotação: ", Widget: rotation}}
 

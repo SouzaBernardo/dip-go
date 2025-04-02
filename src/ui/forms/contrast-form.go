@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func NewContrastForm(matrix [][][]int, onSubmit func([][][]int)) {
+func NewContrastForm(matrix [][][]float64, onSubmit func([][][]float64)) {
 	contrast := widget.NewEntry()
 	items := []*widget.FormItem{{Text: "Valor para o contraste:", Widget: contrast}}
 

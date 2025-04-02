@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func NewBrightnessForm(matrix [][][]int, onSubmit func([][][]int)) {
+func NewBrightnessForm(matrix [][][]float64, onSubmit func([][][]float64)) {
 	brightness := widget.NewEntry()
 	items := []*widget.FormItem{{Text: "Valor para brilho: ", Widget: brightness}}
 

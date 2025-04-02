@@ -5,7 +5,7 @@ import (
 	"pdi/src/use-cases/process-image"
 )
 
-func RotationMatrix(matrix [][][]int, rotation float64) [][][]int {
+func RotationMatrix(matrix [][][]float64, rotation float64) [][][]float64 {
 	radians := rotation * math.Pi / 180 
 	newMatrix := &[3][3]float64{
 		{math.Cos(radians), -math.Sin(radians), 0},
@@ -16,12 +16,12 @@ func RotationMatrix(matrix [][][]int, rotation float64) [][][]int {
 
 }
 
-func processMatrix(matrix *[3][3]float64, original *[][][]int) *[][][]int {
+func processMatrix(matrix *[3][3]float64, original *[][][]float64) *[][][]float64 {
 
 	height := len((*original))
 	width := len((*original)[0])
 
-	destiny := process.NewEmptyMatrix(height, width)
+	destiny := process.NewEmptyMatrixFloat(height, width)
 
 	halfX := float64(width) / 2.0
 	halfY := float64(height) / 2.0
@@ -35,7 +35,7 @@ func processMatrix(matrix *[3][3]float64, original *[][][]int) *[][][]int {
 			newY := tmpX*(*matrix)[1][0] + tmpY*(*matrix)[1][1] + (*matrix)[1][2] + halfY
 
 			if newX >= 0 && newX < float64(width) && newY >= 0 && newY < float64(height) {
-				(*destiny)[int(newY)][int(newX)] = (*original)[y][x] // esse int que gera o bugzinho de perder alguns pixels, é por causa do arredondamento
+				(*destiny)[int(newY)][int(newX)] = (*original)[y][x] 
 			}
 		}
 	}

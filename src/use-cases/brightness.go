@@ -1,5 +1,5 @@
 package usecases
 
-func BirghtnessMatrix(matrix [][][]int, glare float64) [][][]int {
+func BirghtnessMatrix(matrix [][][]float64, glare float64) [][][]float64 {
 	return ContrastMatrix(matrix, 1, glare)
 }
