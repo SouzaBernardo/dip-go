@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func NewTranslateForm(matrix [][][]int, onSubmit func([][][]int)) {
+func NewTranslateForm(matrix [][][]float64, onSubmit func([][][]float64)) {
 
 	deltaXEntry := widget.NewEntry()
 	deltaYEntry := widget.NewEntry()
@@ -24,8 +24,8 @@ func NewTranslateForm(matrix [][][]int, onSubmit func([][][]int)) {
 	}
 
 	NewForm(items, func() {
-		deltaX, errX := strconv.Atoi(deltaXEntry.Text)
-		deltaY, errY := strconv.Atoi(deltaYEntry.Text)
+		deltaX, errX := strconv.ParseFloat(deltaXEntry.Text, 64)
+		deltaY, errY := strconv.ParseFloat(deltaYEntry.Text, 64)
 		if errX != nil || errY != nil {
 			dialog.ShowError(fmt.Errorf("erro ao converter valores de entrada: %v, %v", errX, errY), fyne.CurrentApp().Driver().AllWindows()[0])
 			return

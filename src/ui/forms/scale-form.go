@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func NewScaleForm(matrix [][][]int, onSubmit func([][][]int)) {
+func NewScaleForm(matrix [][][]float64, onSubmit func([][][]float64)) {
 	scale := widget.NewEntry()
 	items := []*widget.FormItem{{Text: "Valor da Escala:", Widget: scale}}
 

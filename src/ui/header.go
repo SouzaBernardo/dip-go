@@ -20,16 +20,25 @@ func updateContainer(result [][][]int, c *fyne.Container) {
 	c.Refresh()
 }
 
+func updateContainerFloat(result [][][]float64, c *fyne.Container) {
+	newImage := convert.ConvertMatrixToImageFloat(result)
+	newCanvasImage := canvas.NewImageFromImage(newImage)
+	newCanvasImage.FillMode = canvas.ImageFillOriginal
+	imageSection := NewImageSection("Imagem Alterada", newCanvasImage)
+	c.Objects = []fyne.CanvasObject{imageSection}
+	c.Refresh()
+}
+
 func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 	matrix := convert.ConvertImageToMatrix(image)
 	matrixFloat := convert.ConvertImageToMatrixFloat(image)
 
 	btn1 := widget.NewButton("Transladar", func() {
-		form.NewTranslateForm(matrix, func(result [][][]int) { updateContainer(result, c) })
+		form.NewTranslateForm(matrixFloat, func(result [][][]float64) { updateContainerFloat(result, c) })
 	})
 
 	btn2 := widget.NewButton("Escala", func() {
-		form.NewScaleForm(matrix, func(result [][][]int) { updateContainer(result, c) })
+		form.NewScaleForm(matrixFloat, func(result [][][]float64) { updateContainerFloat(result, c) })
 	})
 
 	btn3 := widget.NewButton("Rotação", func() {
