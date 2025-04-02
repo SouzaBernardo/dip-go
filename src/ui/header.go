@@ -1,9 +1,9 @@
 package ui
 
 import (
+	"pdi/src/convert"
 	form "pdi/src/ui/forms"
 	usecases "pdi/src/use-cases"
-	"pdi/src/utils"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -12,7 +12,7 @@ import (
 )
 
 func updateContainer(result [][][]int, c *fyne.Container) {
-	newImage := utils.ConvertMatrixToImage(result)
+	newImage := convert.ConvertMatrixToImage(result)
 	newCanvasImage := canvas.NewImageFromImage(newImage)
 	newCanvasImage.FillMode = canvas.ImageFillOriginal
 	imageSection := NewImageSection("Imagem Alterada", newCanvasImage)
@@ -21,8 +21,8 @@ func updateContainer(result [][][]int, c *fyne.Container) {
 }
 
 func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
-	matrix := utils.ConvertImageToMatrix(image)
-	matrixFloat := utils.ConvertImageToMatrixFloat(image)
+	matrix := convert.ConvertImageToMatrix(image)
+	matrixFloat := convert.ConvertImageToMatrixFloat(image)
 
 	btn1 := widget.NewButton("Transladar", func() {
 		form.NewTranslateForm(matrix, func(result [][][]int) { updateContainer(result, c) })
