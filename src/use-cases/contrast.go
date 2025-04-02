@@ -6,7 +6,7 @@ func ContrastMatrix(matrix [][][]float64, contrast float64, glare float64) [][][
 
 	height := len(matrix)
 	width := len(matrix[0])
-	destiny := process.NewEmptyMatrixFloat(height, width)
+	destiny := process.NewEmptyMatrix(height, width)
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
 			rgb := matrix[y][x]

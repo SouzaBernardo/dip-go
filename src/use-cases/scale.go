@@ -10,5 +10,5 @@ func ScaleMatrix(matrix [][][]float64, scale float64) [][][]float64 {
 		{0, 0, 1},
 	}
 
-	return *process.ProcessImageFloat(transformationMatrix, &matrix)
+	return *process.ProcessImage(transformationMatrix, &matrix)
 }

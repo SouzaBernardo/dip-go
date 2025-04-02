@@ -23,5 +23,5 @@ func MirrorMatrix(matrix [][][]float64) [][][]float64 {
 		}
 	}
 
-	return *process.ProcessImageFloat(transformationMatrix, &matrix)
+	return *process.ProcessImage(transformationMatrix, &matrix)
 }

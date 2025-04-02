@@ -12,5 +12,5 @@ func TranslateMatrix(matrix [][][]float64, deltaX float64, deltaY float64) [][][
 		{0, 0, 1},
 	}
 
-	return *process.ProcessImageFloat(transformationMatrix, &matrix)
+	return *process.ProcessImage(transformationMatrix, &matrix)
 }

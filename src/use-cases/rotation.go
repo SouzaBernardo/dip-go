@@ -6,7 +6,7 @@ import (
 )
 
 func RotationMatrix(matrix [][][]float64, rotation float64) [][][]float64 {
-	radians := rotation * math.Pi / 180 
+	radians := rotation * math.Pi / 180
 	newMatrix := &[3][3]float64{
 		{math.Cos(radians), -math.Sin(radians), 0},
 		{math.Sin(radians), math.Cos(radians), 0},
@@ -21,7 +21,7 @@ func processMatrix(matrix *[3][3]float64, original *[][][]float64) *[][][]float6
 	height := len((*original))
 	width := len((*original)[0])
 
-	destiny := process.NewEmptyMatrixFloat(height, width)
+	destiny := process.NewEmptyMatrix(height, width)
 
 	halfX := float64(width) / 2.0
 	halfY := float64(height) / 2.0
@@ -35,7 +35,7 @@ func processMatrix(matrix *[3][3]float64, original *[][][]float64) *[][][]float6
 			newY := tmpX*(*matrix)[1][0] + tmpY*(*matrix)[1][1] + (*matrix)[1][2] + halfY
 
 			if newX >= 0 && newX < float64(width) && newY >= 0 && newY < float64(height) {
-				(*destiny)[int(newY)][int(newX)] = (*original)[y][x] 
+				(*destiny)[int(newY)][int(newX)] = (*original)[y][x]
 			}
 		}
 	}

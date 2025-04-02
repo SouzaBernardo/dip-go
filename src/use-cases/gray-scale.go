@@ -4,7 +4,7 @@ import "pdi/src/use-cases/process-image"
 
 var grayScaleWeights []float64 = []float64{0.5, 0.419, 0.081}
 
-func GrayScaleMatrix(matrix [][][]float64) [][][]int {
+func GrayScaleMatrix(matrix [][][]float64) [][][]float64 {
 
 	height := len((matrix))
 	width := len(matrix[0])
@@ -16,13 +16,11 @@ func GrayScaleMatrix(matrix [][][]float64) [][][]int {
 			rgb := matrix[y][x]
 			grayValue := 0.0
 
-			// Calcular o valor em escala de cinza usando os pesos
 			for i, value := range rgb {
-				grayValue += float64(value) * grayScaleWeights[i]
+				grayValue += value * grayScaleWeights[i]
 			}
 
-			// Arredondar o valor e garantir que esteja no intervalo [0, 255]
-			gray := int(grayValue)
+			gray := grayValue
 			if gray > 255 {
 				gray = 255
 			}
@@ -30,8 +28,7 @@ func GrayScaleMatrix(matrix [][][]float64) [][][]int {
 				gray = 0
 			}
 
-			// Definir o mesmo valor para R, G e B na matriz de destino
-			(*newMatrix)[y][x] = []int{gray, gray, gray}
+			(*newMatrix)[y][x] = []float64{gray, gray, gray}
 		}
 	}
 
