@@ -1,6 +1,6 @@
 package usecases
 
-import "pdi/src/use-cases/process-image"
+import "pdi/use-cases/process-image"
 
 func ScaleMatrix(matrix [][][]float64, scale float64) [][][]float64 {
 

@@ -1,8 +1,8 @@
 package ui
 
 import (
-	"pdi/src/convert"
-	usecases "pdi/src/use-cases"
+	"pdi/convert"
+	usecases "pdi/use-cases"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"

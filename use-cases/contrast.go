@@ -1,6 +1,6 @@
 package usecases
 
-import "pdi/src/use-cases/process-image"
+import "pdi/use-cases/process-image"
 
 func ContrastMatrix(matrix [][][]float64, contrast float64, glare float64) [][][]float64 {
 

@@ -1,7 +1,7 @@
 package usecases
 
 import (
-	"pdi/src/use-cases/process-image"
+	"pdi/use-cases/process-image"
 )
 
 func TranslateMatrix(matrix [][][]float64, deltaX float64, deltaY float64) [][][]float64 {

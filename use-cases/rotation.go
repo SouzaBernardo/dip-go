@@ -2,7 +2,7 @@ package usecases
 
 import (
 	"math"
-	"pdi/src/use-cases/process-image"
+	"pdi/use-cases/process-image"
 )
 
 func RotationMatrix(matrix [][][]float64, rotation float64) [][][]float64 {

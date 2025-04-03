@@ -1,6 +1,6 @@
 package usecases
 
-import "pdi/src/use-cases/process-image"
+import "pdi/use-cases/process-image"
 
 var counter int = 0
 

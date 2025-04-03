@@ -1,7 +1,7 @@
 package main
 
 import (
-	"pdi/src/ui"
+	"pdi/ui"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -9,8 +9,8 @@ import (
 )
 
 func main() {
-	image := ui.NewImage("src/assets/image.jpg")
-	image2 := ui.NewImage("src/assets/image.jpg")
+	image := ui.NewImage("assets/image.jpg")
+	image2 := ui.NewImage("assets/image.jpg")
 
 	imageContainer := ui.NewImageSection("Imagem Original", image)
 	imageContainer2 := ui.NewImageSection("Imagem Alterada", image2)

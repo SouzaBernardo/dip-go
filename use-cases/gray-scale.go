@@ -1,6 +1,6 @@
 package usecases
 
-import "pdi/src/use-cases/process-image"
+import "pdi/use-cases/process-image"
 
 var grayScaleWeights []float64 = []float64{0.5, 0.419, 0.081}
 
