@@ -1,8 +1,9 @@
 package ui
 
 import (
-	"pdi/convert"
-	usecases "pdi/use-cases"
+	"image"
+	"image/color"
+	"pdi/internal/model"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -10,8 +11,25 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
+func convertMatrixToImage(matrix [][][]float64) *image.RGBA {
+	height := len(matrix)
+	width := len(matrix[0])
+	img := image.NewRGBA(image.Rect(0, 0, width, height))
+
+	for y := 0; y < height; y++ {
+		for x := 0; x < width; x++ {
+			r := uint8(matrix[y][x][0])
+			g := uint8(matrix[y][x][1])
+			b := uint8(matrix[y][x][2])
+			img.Set(x, y, color.RGBA{r, g, b, 255})
+		}
+	}
+
+	return img
+}
+
 func updateContainer(result [][][]float64, c *fyne.Container) {
-	newImage := convert.ConvertMatrixToImage(result)
+	newImage := convertMatrixToImage(result)
 	newCanvasImage := canvas.NewImageFromImage(newImage)
 	newCanvasImage.FillMode = canvas.ImageFillOriginal
 	imageSection := NewImageSection("Imagem Alterada", newCanvasImage)
@@ -20,56 +38,56 @@ func updateContainer(result [][][]float64, c *fyne.Container) {
 }
 
 func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
-	matrix := convert.ConvertImageToMatrix(image)
+	matrix := model.ConvertImageToMatrix(image)
 
 	btn1 := widget.NewButton("Transladar", func() {
 		NewForm2Param("Delta X: ", "Delta Y: ", func(x float64, y float64) {
-			result := usecases.TranslateMatrix(matrix, x, y)
-			updateContainer(result, c)
+			matrix.Translate(x, y)
+			updateContainer(*matrix.Value, c)
 		})
 	})
 
 	btn2 := widget.NewButton("Escala", func() {
 		NewForm1Param("Valor para escalar: ", func(value float64) {
-			result := usecases.ScaleMatrix(matrix, value)
-			updateContainer(result, c)
+			matrix.Scale(value)
+			updateContainer(*matrix.Value, c)
 		})
 	})
 
 	btn3 := widget.NewButton("Rotação", func() {
 		NewForm1Param("Valor para rotação: ", func(value float64) {
-			result := usecases.RotationMatrix(matrix, value)
-			updateContainer(result, c)
+			matrix.Rotate(value)
+			updateContainer(*matrix.Value, c)
 		})
 	})
 
 	btn4 := widget.NewButton("Espelhamento", func() {
-		result := usecases.MirrorMatrix(matrix)
-		updateContainer(result, c)
+		matrix.Mirror()
+		updateContainer(*matrix.Value, c)
 	})
 
 	btn5 := widget.NewButton("Brilho", func() {
 		NewForm1Param("Valor para brilho: ", func(value float64) {
-			result := usecases.ContrastMatrix(matrix, 1, value)
-			updateContainer(result, c)
+			matrix.Contrast(1, value)
+			updateContainer(*matrix.Value, c)
 		})
 	})
 
 	btn6 := widget.NewButton("Contraste", func() {
 		NewForm1Param("Valor para contraste: ", func(value float64) {
-			result := usecases.ContrastMatrix(matrix, value, 1)
-			updateContainer(result, c)
+			matrix.Contrast(value, 1)
+			updateContainer(*matrix.Value, c)
 		})
 	})
 
 	btn7 := widget.NewButton("Gray Scale", func() {
-		result := usecases.GrayScaleMatrix(matrix)
-		updateContainer(result, c)
+		matrix.GrayScale()
+		updateContainer(*matrix.Value, c)
 	})
 
 	btn8 := widget.NewButton("Filtragem da média", func() {
-		result := usecases.AverageFiltering(matrix)
-		updateContainer(result, c)
+		matrix.Filtering()
+		updateContainer(*matrix.Value, c)
 	})
 
 	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
