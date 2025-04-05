@@ -1,5 +1,33 @@
 package model
 
+var grayScaleWeights []float64 = []float64{0.5, 0.419, 0.081}
+
+func (m *Matrix) GrayScale() {
+
+	destiny := NewMatrix(m.Height, m.Width)
+	destiny.ForEachPixel(func(x, y int) {
+		rgb := (*m.Value)[y][x]
+		grayValue := 0.0
+
+		for i, value := range rgb {
+			grayValue += value * grayScaleWeights[i]
+		}
+
+		gray := grayValue
+		if gray > 255 {
+			gray = 255
+		}
+		if gray < 0 {
+			gray = 0
+		}
+
+		(*destiny.Value)[y][x] = []float64{gray, gray, gray}
+	})
+	m.Value = destiny.Value
+	m.Height = destiny.Height
+	m.Width = destiny.Width
+}
+
 func (m *Matrix) Contrast(contrast float64, glare float64) {
 	destiny := NewMatrix(m.Height, m.Width)
 

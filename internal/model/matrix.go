@@ -1,7 +1,5 @@
 package model
 
-import "fyne.io/fyne/v2/canvas"
-
 type Matrix struct {
 	Value  *[][][]float64
 	Height int
@@ -16,7 +14,7 @@ func (m *Matrix) ForEachPixel(callback func(x, y int)) {
 	}
 }
 
-func (m *Matrix) ProcessMatrixRotation(matrix *[3][3]float64, original *[][][]float64) *[][][]float64 {
+func (m *Matrix) ProcessMatrixRotation(matrix *[3][3]float64, original *[][][]float64) {
 	height := len((*original))
 	width := len((*original)[0])
 
@@ -36,10 +34,10 @@ func (m *Matrix) ProcessMatrixRotation(matrix *[3][3]float64, original *[][][]fl
 			(*destiny.Value)[int(newY)][int(newX)] = (*original)[y][x]
 		}
 	})
-	return destiny.Value
+	m.Value = destiny.Value
 }
 
-func (m *Matrix) ProcessMatrix(matrix *[3][3]float64) *[][][]float64 {
+func (m *Matrix) ProcessMatrix(matrix *[3][3]float64) {
 
 	destiny := NewMatrix(m.Height, m.Width)
 
@@ -60,7 +58,7 @@ func (m *Matrix) ProcessMatrix(matrix *[3][3]float64) *[][][]float64 {
 		}
 	})
 
-	return destiny.Value
+	m.Value = destiny.Value
 }
 
 func NewMatrix(height int, width int) *Matrix {
@@ -74,26 +72,6 @@ func NewMatrix(height int, width int) *Matrix {
 
 	return &Matrix{
 		Value:  &value,
-		Height: height,
-		Width:  width,
-	}
-}
-
-func ConvertImageToMatrix(img *canvas.Image) *Matrix {
-	bounds := img.Image.Bounds()
-	width, height := bounds.Max.X, bounds.Max.Y
-
-	matrix := make([][][]float64, height)
-	for y := 0; y < height; y++ {
-		matrix[y] = make([][]float64, width)
-		for x := 0; x < width; x++ {
-			r, g, b, _ := img.Image.At(x, y).RGBA()
-			matrix[y][x] = []float64{float64(r >> 8), float64(g >> 8), float64(b >> 8)}
-		}
-	}
-
-	return &Matrix{
-		Value:  &matrix,
 		Height: height,
 		Width:  width,
 	}
