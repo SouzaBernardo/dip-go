@@ -37,7 +37,7 @@ var Functions = map[string]func(...interface{}) *model.Matrix{
 		matrix.Contrast(1, glare)
 		return matrix
 	},
-	"grayScale": func(params ...interface{}) *model.Matrix {
+	"grayscale": func(params ...interface{}) *model.Matrix {
 		matrix.GrayScale()
 		return matrix
 	},

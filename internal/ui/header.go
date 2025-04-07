@@ -71,8 +71,6 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 	})
 
 	btn7 := widget.NewButton("Gray Scale", func() {
-		// matrix.GrayScale()
-		// updateContainer(*matrix.Value, c)
 		content, ok := controller.Execute("grayscale")
 		if ok {
 			updateContainer(content, c)
@@ -86,6 +84,11 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 		}
 	})
 
-	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
+	btn9 := widget.NewButton("Reiniciar", func() {
+		controller.Init(image)
+		updateContainer(image, c)
+	})
+
+	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
 	return container.NewCenter(header)
 }
