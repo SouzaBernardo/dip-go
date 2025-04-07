@@ -28,6 +28,7 @@ jobs:
         run: go mod tidy
 
       - name: Compilar binário
+        working-directory: ./cmd
         run: |
           GOOS=$(go env GOOS)
           GOARCH=$(go env GOARCH)
