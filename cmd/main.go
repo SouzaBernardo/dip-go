@@ -1,7 +1,7 @@
 package main
 
 import (
-	"pdi/ui"
+	"pdi/internal/ui"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
