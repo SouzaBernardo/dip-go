@@ -34,13 +34,8 @@ jobs:
         run: go mod tidy
 
       - name: Compilar binário
-        working-directory: ./cmd/main.go
-        run: |
-          GOOS=$(go env GOOS)
-          GOARCH=$(go env GOARCH)
-          EXT=""
-          if [[ "$GOOS" == "windows" ]]; then EXT=".exe"; fi
-          go build -o build/meu_programa-$GOOS-$GOARCH$EXT
+        working-directory: .
+        run: make build
 
       - name: Upload binário compilado
         uses: actions/upload-artifact@v4
