@@ -2,8 +2,8 @@ name: Build and Release Go Binary
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
   build-linux:
