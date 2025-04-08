@@ -2,34 +2,70 @@ name: Build and Release Go Binary
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
-  build:
-    name: Build and Upload Binaries
+  build-linux:
+    name: Build for Linux
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        goos: [linux, windows, darwin]
-        goarch: [amd64]
-
+    container:
+      image: golang:1.23
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22'
+      - name: Install dependencies
+        run: apt-get update && apt-get install -y libgl1-mesa-dev xorg-dev libxcursor-dev
 
       - name: Build binary
         run: |
           mkdir -p dist
-          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o dist/myapp-${{ matrix.goos }}-${{ matrix.goarch }} main.go
+          GOOS=linux GOARCH=amd64 go build -o dist/myapp-linux-amd64 ./cmd/main.go
 
-      - name: Upload binaries to release
+      - name: Upload binaries
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/myapp-*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-windows:
+    name: Build for Windows
+    runs-on: ubuntu-latest
+    container:
+      image: tianon/golang-cross  # imagem com toolchain mingw
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build binary
+        run: |
+          mkdir -p dist
+          GOOS=windows GOARCH=amd64 go build -o dist/myapp-windows-amd64.exe ./cmd/main.go
+
+      - name: Upload binaries
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/myapp-*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-macos:
+    name: Build for macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Build binary
+        run: |
+          mkdir -p dist
+          GOOS=darwin GOARCH=amd64 go build -o dist/myapp-darwin-amd64 ./cmd/main.go
+
+      - name: Upload binaries
         uses: softprops/action-gh-release@v2
         with:
           files: dist/myapp-*
