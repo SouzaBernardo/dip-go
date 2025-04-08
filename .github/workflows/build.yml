@@ -22,14 +22,18 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version: '1.23'
 
-      - name: Build binary
+      - name: Set environment for target OS/ARCH
+        run: echo "GOOS=${{ matrix.goos }}" >> $GITHUB_ENV && echo "GOARCH=${{ matrix.goarch }}" >> $GITHUB_ENV
+
+      - name: Build using Makefile
         run: |
+          make build
           mkdir -p dist
-          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o dist/myapp-${{ matrix.goos }}-${{ matrix.goarch }} main.go
+          cp build/main dist/myapp-${{ matrix.goos }}-${{ matrix.goarch }}
 
-      - name: Upload binaries to release
+      - name: Upload binaries to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: dist/myapp-*
