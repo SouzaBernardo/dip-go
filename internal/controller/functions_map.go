@@ -41,4 +41,8 @@ var Functions = map[string]func(...interface{}) *model.Matrix{
 		matrix.GrayScale()
 		return matrix
 	},
+	"border": func(params ...interface{}) *model.Matrix {
+		matrix.FilteringBorder()
+		return matrix
+	},
 }

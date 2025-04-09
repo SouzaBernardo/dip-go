@@ -84,11 +84,19 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 		}
 	})
 
-	btn9 := widget.NewButton("Reiniciar", func() {
+	btn9 := widget.NewButton("Filtro de Borda", func() {
+		content, ok := controller.Execute("border")
+		if ok {
+			updateContainer(content, c)
+		}
+	})
+
+
+	btn10 := widget.NewButton("Reiniciar", func() {
 		controller.Init(image)
 		updateContainer(image, c)
 	})
 
-	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
+	header := container.NewHBox(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10)
 	return container.NewCenter(header)
 }

@@ -82,3 +82,41 @@ func (m *Matrix) Filtering() {
 	m.Height = destiny.Height
 	m.Width = destiny.Width
 }
+
+func (m *Matrix) FilteringBorder() {
+	destiny := NewMatrix(m.Height, m.Width)
+
+	mask := [3][3]float64{
+		{-1, -1, -1},
+		{-1, 8, -1},
+		{-1, -1, -1},
+	}
+
+	for y := 1; y < destiny.Height-1; y++ {
+		for x := 1; x < destiny.Width-1; x++ {
+			z := [3]float64{0, 0, 0}
+
+			for i := 0; i < 3; i++ {
+				for j := 0; j < 3; j++ {
+					color := (*m.Value)[y+i-1][x+j-1]
+					for k := 0; k < 3; k++ {
+						z[k] += color[k] * mask[i][j]
+					}
+				}
+			}
+
+			for k := 0; k < 3; k++ {
+				if z[k] > 255 {
+					z[k] = 255
+				}
+				if z[k] < 0 {
+					z[k] = 0
+				}
+				(*destiny.Value)[y][x][k] = z[k]
+			}
+		}
+	}
+	m.Value = destiny.Value
+	m.Height = destiny.Height
+	m.Width = destiny.Width
+}
