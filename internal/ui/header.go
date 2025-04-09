@@ -77,7 +77,7 @@ func NewHeader(image *canvas.Image, c *fyne.Container) *fyne.Container {
 		}
 	})
 
-	btn8 := widget.NewButton("Filtragem da média", func() {
+	btn8 := widget.NewButton("Filtro Gaussiano", func() {
 		content, ok := controller.Execute("filtering")
 		if ok {
 			updateContainer(content, c)
